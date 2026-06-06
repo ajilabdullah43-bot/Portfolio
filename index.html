@@ -1398,9 +1398,6 @@ section {
   </div>
 </section>
 
-<!-- EDIT BUTTON -->
-<button class="edit-btn" onclick="toggleEdit()" id="editBtn">✎ Edit Mode</button>
-<div class="edit-hint" id="editHint">Click any text on the page to edit it directly. Changes persist in your browser.</div>
 
 <script>
 // ── SCROLL REVEAL ──
@@ -1415,30 +1412,7 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.08 });
 reveals.forEach(el => observer.observe(el));
 
-// ── EDIT MODE ──
-let editMode = false;
-function toggleEdit() {
-  editMode = !editMode;
-  document.body.classList.toggle("edit-mode", editMode);
-  const btn = document.getElementById("editBtn");
-  const hint = document.getElementById("editHint");
-  if (editMode) {
-    btn.textContent = "✓ Done Editing";
-    btn.style.background = "#c9a84c";
-    hint.style.display = "block";
-    document.querySelectorAll("[contenteditable]").forEach(el => {
-      el.setAttribute("contenteditable", "true");
-    });
-  } else {
-    btn.textContent = "✎ Edit Mode";
-    btn.style.background = "";
-    hint.style.display = "none";
-    document.querySelectorAll("[contenteditable]").forEach(el => {
-      el.setAttribute("contenteditable", "false");
-      localStorage.setItem("edit_" + (el.dataset.id || el.className + el.textContent.slice(0,20)), el.innerHTML);
-    });
-  }
-}
+
 
 // ── RESTORE SAVED EDITS ──
 window.addEventListener("load", () => {
